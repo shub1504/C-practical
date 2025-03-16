@@ -1,0 +1,31 @@
+#include <iostream>
+#include <set>
+#include <vector>
+
+using namespace std;
+
+void removeDuplicates(vector<int>& arr) {
+    set<int> uniqueElements(arr.begin(), arr.end()); 
+    arr.assign(uniqueElements.begin(), uniqueElements.end()); 
+}
+
+int main() {
+    
+    vector<int> arr = {1, 2, 3, 2, 4, 5, 1, 6, 5};
+
+    cout << "Original array: ";
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    removeDuplicates(arr); 
+
+    cout << "Array after removing duplicates: ";
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
