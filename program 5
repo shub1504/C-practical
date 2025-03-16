@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Function to merge two ordered arrays into a single ordered array
+void mergeArrays(int arr1[], int arr2[], int size1, int size2, int merged[]) {
+    int i = 0, j = 0, k = 0;
+
+    // Compare elements of both arrays and add the smaller one to merged[]
+    while (i < size1 && j < size2) {
+        if (arr1[i] < arr2[j]) {
+            merged[k++] = arr1[i++];
+        } else {
+            merged[k++] = arr2[j++];
+        }
+    }
+
+    // If there are remaining elements in arr1, add them to merged[]
+    while (i < size1) {
+        merged[k++] = arr1[i++];
+    }
+
+    // If there are remaining elements in arr2, add them to merged[]
+    while (j < size2) {
+        merged[k++] = arr2[j++];
+    }
+}
+
+int main() {
+    int arr1[] = {1, 4, 7, 10};  // First sorted array
+    int arr2[] = {2, 3, 5, 6, 8, 9};  // Second sorted array
+
+    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+    int size2 = sizeof(arr2) / sizeof(arr2[0]);
+
+    // Resulting merged array
+    int merged[size1 + size2];
+
+    // Merge the arrays
+    mergeArrays(arr1, arr2, size1, size2, merged);
+
+    // Print the merged array
+    cout << "Merged array: ";
+    for (int i = 0; i < size1 + size2; i++) {
+        cout << merged[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
