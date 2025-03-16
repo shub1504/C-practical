@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+
+// GCD with Recursion (Euclidean Algorithm)
+int gcdRecursion(int a, int b) {
+    // Base case: if b is zero, return a as the GCD
+    if (b == 0) {
+        return a;
+    }
+    return gcdRecursion(b, a % b);  // Recursive step
+}
+
+// GCD without Recursion (Euclidean Algorithm)
+int gcdNonRecursion(int a, int b) {
+    while (b != 0) {
+        int temp = a % b;
+        a = b;
+        b = temp;
+    }
+    return a;
+}
+
+int main() {
+    int a, b;
+
+    cout << "Enter two numbers: ";
+    cin >> a >> b;
+
+    // Calculate GCD with Recursion
+    int resultRecursion = gcdRecursion(a, b);
+    cout << "GCD (Recursion) of " << a << " and " << b << " is: " << resultRecursion << endl;
+
+    // Calculate GCD without Recursion
+    int resultNonRecursion = gcdNonRecursion(a, b);
+    cout << "GCD (Non-Recursion) of " << a << " and " << b << " is: " << resultNonRecursion << endl;
+
+    return 0;
+}
