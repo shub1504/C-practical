@@ -1,0 +1,79 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Base class Person
+class Person {
+protected:
+    string name;  // Data member to store name
+
+public:
+    // Constructor to initialize name
+    Person(string name) {
+        this->name = name;
+    }
+
+    // Virtual function to display the name (runtime polymorphism)
+    virtual void display() const {
+        cout << "Name: " << name << endl;
+    }
+};
+
+// Derived class Student
+class Student : public Person {
+private:
+    string course;
+    float marks;
+    int year;
+
+public:
+    // Constructor to initialize name and student-specific attributes
+    Student(string name, string course, float marks, int year)
+        : Person(name), course(course), marks(marks), year(year) {}
+
+    // Overriding the display function for Student class
+    void display() const override {
+        Person::display();  // Call base class display() for name
+        cout << "Course: " << course << endl;
+        cout << "Marks: " << marks << endl;
+        cout << "Year: " << year << endl;
+    }
+};
+
+// Derived class Employee
+class Employee : public Person {
+private:
+    string department;
+    float salary;
+
+public:
+    // Constructor to initialize name and employee-specific attributes
+    Employee(string name, string department, float salary)
+        : Person(name), department(department), salary(salary) {}
+
+    // Overriding the display function for Employee class
+    void display() const override {
+        Person::display();  // Call base class display() for name
+        cout << "Department: " << department << endl;
+        cout << "Salary: " << salary << endl;
+    }
+};
+
+int main() {
+    // Create objects for Student and Employee
+    Person* person1 = new Student("John Doe", "Computer Science", 89.5, 2024);
+    Person* person2 = new Employee("Jane Smith", "HR", 55000.0);
+
+    // Display the details of Student and Employee using polymorphism
+    cout << "Student Details:" << endl;
+    person1->display();  // This will call Student's display()
+
+    cout << "\nEmployee Details:" << endl;
+    person2->display();  // This will call Employee's display()
+
+    // Clean up the dynamically allocated memory
+    delete person1;
+    delete person2;
+
+    return 0;
+}
