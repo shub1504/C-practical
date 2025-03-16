@@ -1,0 +1,168 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+// Function to show the address of each character in the string
+void showAddressOfEachChar(char* str) {
+    cout << "Addresses of each character in the string:" << endl;
+    for (int i = 0; str[i] != '\0'; i++) {
+        cout << "Character: " << str[i] << " | Address: " << (void*)&str[i] << endl;
+    }
+}
+
+// Function to concatenate two strings
+void concatenateStrings(char* str1, char* str2, char* result) {
+    int i = 0, j = 0;
+
+    // Copy first string to result
+    while (str1[i] != '\0') {
+        result[i] = str1[i];
+        i++;
+    }
+
+    // Copy second string to result
+    while (str2[j] != '\0') {
+        result[i + j] = str2[j];
+        j++;
+    }
+    result[i + j] = '\0';  // Null-terminate the concatenated string
+}
+
+// Function to compare two strings
+int compareStrings(char* str1, char* str2) {
+    int i = 0;
+    while (str1[i] != '\0' && str2[i] != '\0') {
+        if (str1[i] != str2[i]) {
+            return (str1[i] - str2[i]);  // Return difference if characters don't match
+        }
+        i++;
+    }
+    return (str1[i] - str2[i]);  // Handle case when lengths are different
+}
+
+// Function to calculate the length of the string using pointers
+int calculateLength(char* str) {
+    int length = 0;
+    while (*str != '\0') {
+        length++;
+        str++;
+    }
+    return length;
+}
+
+// Function to convert all lowercase characters to uppercase
+void convertToUppercase(char* str) {
+    while (*str != '\0') {
+        if (*str >= 'a' && *str <= 'z') {
+            *str = *str - 'a' + 'A';  // Convert to uppercase
+        }
+        str++;
+    }
+}
+
+// Function to reverse the string
+void reverseString(char* str) {
+    int length = calculateLength(str);
+    char* start = str;
+    char* end = str + length - 1;
+    char temp;
+
+    while (start < end) {
+        // Swap characters
+        temp = *start;
+        *start = *end;
+        *end = temp;
+        start++;
+        end--;
+    }
+}
+
+int main() {
+    char str1[100], str2[100], result[200];
+    int choice;
+
+    while (true) {
+        // Display the menu
+        cout << "\nMenu:" << endl;
+        cout << "1. Show address of each character of a string" << endl;
+        cout << "2. Concatenate two strings" << endl;
+        cout << "3. Compare two strings" << endl;
+        cout << "4. Calculate length of the string" << endl;
+        cout << "5. Convert all lowercase to uppercase" << endl;
+        cout << "6. Reverse the string" << endl;
+        cout << "7. Exit" << endl;
+
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Show address of each character of a string
+                cout << "Enter a string: ";
+                cin >> str1;
+                showAddressOfEachChar(str1);
+                break;
+
+            case 2:
+                // Concatenate two strings
+                cout << "Enter the first string: ";
+                cin >> str1;
+                cout << "Enter the second string: ";
+                cin >> str2;
+                concatenateStrings(str1, str2, result);
+                cout << "Concatenated string: " << result << endl;
+                break;
+
+            case 3:
+                // Compare two strings
+                cout << "Enter the first string: ";
+                cin >> str1;
+                cout << "Enter the second string: ";
+                cin >> str2;
+                int comparisonResult = compareStrings(str1, str2);
+                if (comparisonResult == 0) {
+                    cout << "The strings are equal." << endl;
+                } else if (comparisonResult < 0) {
+                    cout << "The first string is lexicographically smaller." << endl;
+                } else {
+                    cout << "The first string is lexicographically larger." << endl;
+                }
+                break;
+
+            case 4:
+                // Calculate length of the string
+                cout << "Enter a string: ";
+                cin >> str1;
+                int length = calculateLength(str1);
+                cout << "Length of the string is: " << length << endl;
+                break;
+
+            case 5:
+                // Convert all lowercase to uppercase
+                cout << "Enter a string: ";
+                cin >> str1;
+                convertToUppercase(str1);
+                cout << "String after conversion to uppercase: " << str1 << endl;
+                break;
+
+            case 6:
+                // Reverse the string
+                cout << "Enter a string: ";
+                cin >> str1;
+                reverseString(str1);
+                cout << "Reversed string: " << str1 << endl;
+                break;
+
+            case 7:
+                // Exit the program
+                cout << "Exiting program." << endl;
+                return 0;
+
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+
+    return 0;
+}
