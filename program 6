@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+
+// Binary Search with Recursion
+int binarySearchRecursion(int arr[], int left, int right, int target) {
+    // Base case: if the search range is invalid
+    if (left > right) {
+        return -1;  // Target not found
+    }
+    
+    // Find the middle index
+    int mid = left + (right - left) / 2;
+
+    // If the target is at the mid index
+    if (arr[mid] == target) {
+        return mid;  // Target found, return the index
+    }
+
+    // If the target is smaller than mid, search in the left half
+    if (arr[mid] > target) {
+        return binarySearchRecursion(arr, left, mid - 1, target);
+    }
+    
+    // Otherwise, search in the right half
+    return binarySearchRecursion(arr, mid + 1, right, target);
+}
+
+// Binary Search without Recursion
+int binarySearchNonRecursion(int arr[], int n, int target) {
+    int left = 0, right = n - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        // If the target is at the mid index
+        if (arr[mid] == target) {
+            return mid;  // Target found, return the index
+        }
+        
+        // If the target is smaller than mid, search in the left half
+        if (arr[mid] > target) {
+            right = mid - 1;
+        }
+        // Otherwise, search in the right half
+        else {
+            left = mid + 1;
+        }
+    }
+
+    return -1;  // Target not found
+}
+
+int main() {
+    int arr[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29};  // A sorted array
+    int n = sizeof(arr) / sizeof(arr[0]);  // Size of the array
+    int target;
+
+    cout << "Enter the element to search: ";
+    cin >> target;
+
+    // Binary Search with Recursion
+    int resultRecursion = binarySearchRecursion(arr, 0, n - 1, target);
+    if (resultRecursion != -1) {
+        cout << "Element " << target << " found at index (Recursion): " << resultRecursion << endl;
+    } else {
+        cout << "Element " << target << " not found (Recursion)." << endl;
+    }
+
+    // Binary Search without Recursion
+    int resultNonRecursion = binarySearchNonRecursion(arr, n, target);
+    if (resultNonRecursion != -1) {
+        cout << "Element " << target << " found at index (Non-Recursion): " << resultNonRecursion << endl;
+    } else {
+        cout << "Element " << target << " not found (Non-Recursion)." << endl;
+    }
+
+    return 0;
+}
