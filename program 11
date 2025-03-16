@@ -1,0 +1,32 @@
+#include <iostream>
+#include <stdexcept> // For std::invalid_argument
+#include <cmath> // For the pow function
+
+using namespace std;
+
+int main() {
+    double p, q;
+
+    // Read two numbers p and q
+    cout << "Enter base (p): ";
+    cin >> p;
+    cout << "Enter exponent (q): ";
+    cin >> q;
+
+    try {
+        // Check if q is 0, and throw an exception
+        if (q == 0) {
+            throw invalid_argument("Exponent q cannot be 0.");
+        }
+
+        // Calculate p raised to the power q and display the result
+        double result = pow(p, q); // Use pow() function to calculate p^q
+        cout << "Result of " << p << " raised to the power " << q << " is: " << result << endl;
+    }
+    catch (const invalid_argument& e) {
+        // Catch the exception if q is 0 and display an error message
+        cout << "Error: " << e.what() << endl;
+    }
+
+    return 0;
+}
